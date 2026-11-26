@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: WhiteSmoke;
+            margin: 0;
+        }
+
+        header {
+            background-color: MidnightBlue;
+            color: White;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: SteelBlue;
+            text-align: center;
+            padding: 15px;
+        }
+
+        nav a {
+            color: White;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        form {
+            background-color: White;
+            max-width: 550px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 7px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: SteelBlue;
+            color: White;
+            padding: 12px 25px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: MidnightBlue;
+        }
+
+        #error {
+            color: Red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Student Registration Form</h1>
+    <p>Online Application</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="resume.html">Resume</a>
+    <a href="biodata.html">Bio-data</a>
+    <a href="registration.html">Registration</a>
+</nav>
+
+<form id="registrationForm">
+
+    <label>Name:</label>
+    <input type="text" id="name" required>
+
+    <label>USN:</label>
+    <input type="text" id="usn" required>
+
+    <label>Email:</label>
+    <input type="email" id="email" required>
+
+    <label>Phone Number:</label>
+    <input type="tel" id="phone" maxlength="10" required>
+
+    <label>Department:</label>
+    <select id="department" required>
+        <option value="">Select Department</option>
+        <option>CSE</option>
+        <option>ISE</option>
+        <option>ECE</option>
+        <option>ME</option>
+    </select>
+
+    <label>Semester:</label>
+    <select id="semester" required>
+        <option value="">Select Semester</option>
+        <option>1st Semester</option>
+        <option>2nd Semester</option>
+        <option>3rd Semester</option>
+        <option>4th Semester</option>
+        <option>5th Semester</option>
+        <option>6th Semester</option>
+        <option>7th Semester</option>
+        <option>8th Semester</option>
+    </select>
+
+    <label>Address:</label>
+    <textarea id="address" required></textarea>
+
+    <p id="error"></p>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<script>
+$(document).ready(function() {
+
+    $("#registrationForm").submit(function(event) {
+
+        event.preventDefault();
+
+        var name = $("#name").val().trim();
+        var usn = $("#usn").val().trim();
+        var email = $("#email").val().trim();
+        var phone = $("#phone").val().trim();
+        var department = $("#department").val();
+        var semester = $("#semester").val();
+        var address = $("#address").val().trim();
+
+        if (name == "" || usn == "" || email == "" ||
+            phone == "" || department == "" ||
+            semester == "" || address == "") {
+
+            $("#error").text("Please fill all the fields.");
+            return;
+        }
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+            $("#error").text("Enter a valid 10-digit phone number.");
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            $("#error").text("Enter a valid email address.");
+            return;
+        }
+
+        var student = {
+            name: name,
+            usn: usn,
+            email: email,
+            phone: phone,
+            department: department,
+            semester: semester,
+            address: address
+        };
+
+        localStorage.setItem("studentDetails", JSON.stringify(student));
+
+        window.location.href = "confirmation.html";
+    });
+
+});
+</script>
+
+</body>
+</html>
