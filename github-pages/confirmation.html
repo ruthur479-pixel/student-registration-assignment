@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Confirmation</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: WhiteSmoke;
+            text-align: center;
+            margin: 0;
+        }
+
+        header {
+            background-color: MidnightBlue;
+            color: White;
+            padding: 20px;
+        }
+
+        main {
+            background-color: White;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid LightGray;
+            padding: 12px;
+            text-align: left;
+        }
+
+        button {
+            background-color: SteelBlue;
+            color: White;
+            border: none;
+            padding: 12px 25px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Registration Successful</h1>
+    <p>Student Application Details</p>
+</header>
+
+<main>
+    <h2>Submitted Information</h2>
+
+    <table id="details"></table>
+
+    <button onclick="window.location.href='index.html'">
+        Back to Home
+    </button>
+</main>
+
+<script>
+    var student = JSON.parse(localStorage.getItem("studentDetails"));
+
+    var table = document.getElementById("details");
+
+    if (student) {
+        for (var key in student) {
+            var row = table.insertRow();
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+
+            cell1.textContent = key.toUpperCase();
+            cell2.textContent = student[key];
+        }
+    } else {
+        table.innerHTML = "<tr><td>No registration details found.</td></tr>";
+    }
+</script>
+
+</body>
+</html>
